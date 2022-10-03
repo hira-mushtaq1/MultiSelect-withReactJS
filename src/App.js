@@ -1,4 +1,5 @@
 import "./App.css";
+import Container from "react-bootstrap/Container";
 import PropertyBar from "./components/PropertyBar";
 import styled from "styled-components";
 import Add from "./components/Add";
@@ -28,11 +29,11 @@ const Sell = styled.div`
   margin-left: 20px;
 `;
 
-const Wrapper = styled.div`
-  padding: 0px 120px 0px 120px;
-  display: flex;
-  flex-wrap: wrap;
-`;
+// const Wrapper = styled.div`
+//   padding: 0px 120px 0px 120px;
+//   display: flex;
+//   flex-wrap: wrap;
+// `;
 
 function App() {
   const adsData = [
@@ -269,14 +270,14 @@ function App() {
       <div
         style={{
           backgroundColor: "#f7f8f8",
-          width: "100%",
+          width: "100vw",
         }}
       >
-        <Wrapper style={{ marginBottom: 20 }}>
+        <Container style={{ marginBottom: 20 }}>
           <PropertyBar />
-        </Wrapper>
+        </Container>
 
-        <Wrapper>
+        <Container style={{ display: "flex", flexWrap: "wrap" }}>
           <Wrapper2>
             <svg height="35" viewBox="0 0 36.289 20.768" alt="Olx logo">
               <path d="M18.9 20.77V0h4.93v20.77zM0 10.39a8.56 8.56 0 1 1 8.56 8.56A8.56 8.56 0 0 1 0 10.4zm5.97-.01a2.6 2.6 0 1 0 2.6-2.6 2.6 2.6 0 0 0-2.6 2.6zm27 5.2l-1.88-1.87-1.87 1.88H25.9V12.3l1.9-1.9-1.9-1.89V5.18h3.27l1.92 1.92 1.93-1.92h3.27v3.33l-1.9 1.9 1.9 1.9v3.27z"></path>
@@ -421,40 +422,42 @@ function App() {
               </Wrapper2>
             </div>
           </Wrapper2>
-          <Box sx={{ padding: "10px" }}>
-            {filteredlist.map((item, id) => (
-              <ToggleButton
-                key={id}
-                value={item}
-                onClick={(e) => {
-                  setCardState(e.target.value);
-                  console.log(cardState);
-                  setCardStatus(filterCards(cardState));
-                  list.includes(e.target.value) === false
-                    ? list.push(e.target.value)
-                    : null;
-                  setList([...list]);
-                  console.log(list);
-                }}
-                sx={{
-                  marginX: "10px",
-                  backgroundColor: "rgb(58, 119, 255);",
-                  color: "white",
-                  borderRadius: "15px",
-                }}
-              >
-                {item}
-              </ToggleButton>
-            ))}
-          </Box>
-        </Wrapper>
+          <div>
+            <Box sx={{ padding: "10px" }}>
+              {filteredlist.map((item, id) => (
+                <ToggleButton
+                  key={id}
+                  value={item}
+                  onClick={(e) => {
+                    setCardState(e.target.value);
+                    console.log(cardState);
+                    setCardStatus(filterCards(cardState));
+                    list.includes(e.target.value) === false
+                      ? list.push(e.target.value)
+                      : null;
+                    setList([...list]);
+                    console.log(list);
+                  }}
+                  sx={{
+                    marginX: "10px",
+                    backgroundColor: "rgb(58, 119, 255);",
+                    color: "white",
+                    borderRadius: "15px",
+                  }}
+                >
+                  {item}
+                </ToggleButton>
+              ))}
+            </Box>
+          </div>
+        </Container>
       </div>
       <div>
-        <Wrapper>
+        <Container>
           <Add />
-        </Wrapper>
+        </Container>
       </div>
-      <Wrapper>
+      <Container>
         <Typography
           variant="h5"
           gutterBottom
@@ -462,9 +465,11 @@ function App() {
         >
           Fresh Recommendations
         </Typography>
-      </Wrapper>
+      </Container>
 
-      <Wrapper>{cardStatus}</Wrapper>
+      <Container style={{ display: "flex", flexWrap: "wrap" }}>
+        {cardStatus}
+      </Container>
 
       <div>
         <Add2 />

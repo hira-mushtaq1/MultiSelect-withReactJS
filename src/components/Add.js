@@ -10,6 +10,7 @@ function Add() {
     <Wrapper>
       <img
         style={{ cursor: "pointer" }}
+        width={"100%"}
         src="https://images.olx.com.pk/thumbnails/289009991-800x600.webp"
         alt=""
       />
