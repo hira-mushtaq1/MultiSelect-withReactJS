@@ -17,6 +17,7 @@ import { Box, ToggleButton, Select, MenuItem } from "@mui/material";
 import SvgIcon from "@mui/material/SvgIcon";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import MyLocationRoundedIcon from "@mui/icons-material/MyLocationRounded";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
 import { useState, useEffect } from "react";
 
@@ -206,6 +207,30 @@ function App() {
 
   // state for togglebutton
   const [filteredlist, setfilteredlist] = useState([]);
+  let fl = filteredlist.map((item, id) => (
+    <ToggleButton
+      key={id}
+      value={item}
+      onClick={(e) => {
+        setCardState(e.target.value);
+        console.log(cardState);
+        setCardStatus(filterCards(cardState));
+        list.includes(e.target.value) === false
+          ? list.push(e.target.value)
+          : null;
+        setList([...list]);
+        console.log(list);
+      }}
+      sx={{
+        marginX: "10px",
+        backgroundColor: "rgb(58, 119, 255);",
+        color: "white",
+        borderRadius: "15px",
+      }}
+    >
+      {item}
+    </ToggleButton>
+  ));
 
   // state for multi select list
   const [list, setList] = useState([]);
@@ -236,6 +261,13 @@ function App() {
     );
     setNewState(b);
   }
+
+  // toggle button states
+  const [formats, setFormats] = useState(() => ["bold", "italic"]);
+
+  const handleFormat = (event, newFormats) => {
+    setFormats(newFormats);
+  };
 
   cardStatus = newState.map((v, i) => (
     <Cards
@@ -270,7 +302,7 @@ function App() {
       <div
         style={{
           backgroundColor: "#f7f8f8",
-          width: "100vw",
+          width: "100%",
         }}
       >
         <Container style={{ marginBottom: 20 }}>
@@ -424,30 +456,13 @@ function App() {
           </Wrapper2>
           <div>
             <Box sx={{ padding: "10px" }}>
-              {filteredlist.map((item, id) => (
-                <ToggleButton
-                  key={id}
-                  value={item}
-                  onClick={(e) => {
-                    setCardState(e.target.value);
-                    console.log(cardState);
-                    setCardStatus(filterCards(cardState));
-                    list.includes(e.target.value) === false
-                      ? list.push(e.target.value)
-                      : null;
-                    setList([...list]);
-                    console.log(list);
-                  }}
-                  sx={{
-                    marginX: "10px",
-                    backgroundColor: "rgb(58, 119, 255);",
-                    color: "white",
-                    borderRadius: "15px",
-                  }}
-                >
-                  {item}
-                </ToggleButton>
-              ))}
+              <ToggleButtonGroup
+                value={formats}
+                onChange={handleFormat}
+                aria-label="text formatting"
+              >
+                {fl}
+              </ToggleButtonGroup>
             </Box>
           </div>
         </Container>
