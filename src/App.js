@@ -200,7 +200,7 @@ function App() {
   ];
 
   // state for input value
-  const [cardState, setCardState] = useState("");
+  const [inputState, setinputState] = useState("");
 
   // state for main data
   const [newState, setNewState] = useState([...adsData]);
@@ -212,9 +212,9 @@ function App() {
       key={id}
       value={item}
       onClick={(e) => {
-        setCardState(e.target.value);
-        console.log(cardState);
-        setCardStatus(filterCards(cardState));
+        setinputState(e.target.value);
+        console.log(inputState);
+        setCardStatus(filterCards(inputState));
         list.includes(e.target.value) === false
           ? list.push(e.target.value)
           : null;
@@ -242,7 +242,7 @@ function App() {
     let categoryList = newState.map((x, i) => x.category);
     categoryList = [...new Set([...categoryList])];
     setfilteredlist([...categoryList]);
-    console.log(categoryList);
+    // console.log(categoryList);
   };
 
   useEffect(() => {
@@ -250,14 +250,12 @@ function App() {
   }, []);
 
   function filterCards(filterCriteria) {
-    // let c = list.map((e) => e);
     let b = adsData.filter(
       (x) =>
         x.category.includes(filterCriteria) ||
         x.addTitle.toLowerCase().includes(filterCriteria) ||
         x.city.includes(filterCriteria) ||
         x.country.includes(filterCriteria)
-      // x.category.includes(c)
     );
     setNewState(b);
   }
@@ -282,7 +280,7 @@ function App() {
 
   cardStatus == ""
     ? (cardStatus = (
-        <div
+        <Container
           style={{
             display: "flex",
             justifyContent: "center",
@@ -293,7 +291,7 @@ function App() {
             src="https://i.pinimg.com/originals/49/e5/8d/49e58d5922019b8ec4642a2e2b9291c2.png"
             alt=""
           />
-        </div>
+        </Container>
       ))
     : null;
 
@@ -321,8 +319,8 @@ function App() {
                   defaultValue="Pakistan"
                   style={{ marginLeft: 30, outline: "2px solid black" }}
                   onChange={(e) => {
-                    setCardState(e.target.value);
-                    setCardStatus(filterCards(cardState));
+                    setinputState(e.target.value);
+                    setCardStatus(filterCards(inputState));
                     console.log(e.target.value);
                   }}
                   sx={{
@@ -399,9 +397,11 @@ function App() {
                     style={{ padding: 0 }}
                     placeholder="Find Cars, Mobile Phones and more..."
                     onChange={(e) => {
-                      setCardState(e.target.value);
-                      setCardStatus(filterCards(cardState));
-                      console.log("a");
+                      // console.log(inputState);
+                      setinputState(e.target.value);
+                      console.log(inputState);
+                      setCardStatus(filterCards(inputState));
+                      // console.log("a");
                     }}
                   />
                   <IconButton
